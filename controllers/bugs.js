@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import BugsModel from '../models/bugsModel.js'
 
 export const getBugs = async (req, res) => {
@@ -21,3 +22,14 @@ export const createBug = async (req, res) => {
     }
 };
 
+
+export const updateBug = async (req, res) => {
+    const { id: _id } = req.params;
+    const bug = req.body;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bug with that Id');
+
+    const updatedBug = await BugsModel.findByIdAndUpdate(_id, bug, {new: true});
+
+    res.json(updateBug);
+}
