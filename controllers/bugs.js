@@ -24,12 +24,23 @@ export const createBug = async (req, res) => {
 
 
 export const updateBug = async (req, res) => {
-    const { id: _id } = req.params;
+    const { id } = req.params;
     const bug = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bug with that Id');
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No bug with id: ${id}`);
 
     const updatedBug = await BugsModel.findByIdAndUpdate(_id, bug, {new: true});
 
     res.json(updateBug);
+}
+
+
+export const deleteBug = async (req, res) => {
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No bug with id: ${id}`);
+
+    await BugsModel.findByIdAndDelete(id);
+
+    res.json({ message: "Post deleted successfully." });
 }
