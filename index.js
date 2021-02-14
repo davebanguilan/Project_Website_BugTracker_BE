@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from "dotenv";
 
 import bugsRoutes from "./routes/bugs.js";
+import userRoutes from "./routes/users.js";
 
 const app = express();
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
 app.use("/bugs", bugsRoutes);
+app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello to Bug Tracker API");
