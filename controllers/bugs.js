@@ -13,7 +13,11 @@ export const getBugs = async (req, res) => {
 
 export const createBug = async (req, res) => {
     const bug = req.body;
-    const newBug = new BugsModel(bug);
+    const newBug = new BugsModel({
+        ...bug,
+        creator: req.userId,
+        createdAt: new Date().toISOString()
+    });
     try {
         await newBug.save();
         res.status(201).json(newBug);
