@@ -33,7 +33,7 @@ export const updateBug = async (req, res) => {
 
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No bug with id: ${id}`);
 
-    const updatedBug = await BugsModel.findByIdAndUpdate(_id, bug, {new: true});
+    const updatedBug = await BugsModel.findByIdAndUpdate(id, bug, {new: true});
 
     res.json(updateBug);
 }
